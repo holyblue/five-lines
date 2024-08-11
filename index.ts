@@ -79,7 +79,7 @@ function moveVertical(dy: number) {
     }
 }
 
-function handelInputs() {
+function handleInputs() {
     while (inputs.length > 0) {
         let current = inputs.pop();
         if (current === Input.LEFT)
@@ -118,7 +118,7 @@ function updateMap() {
 }
 
 function update() {
-    handelInputs();
+    handleInputs();
     updateMap();
 }
 
