@@ -12,14 +12,19 @@ enum Tile {
     KEY1, LOCK1,
     KEY2, LOCK2
 }
+
 interface Input {
     isRight(): boolean;
     isLeft(): boolean;
     isUp(): boolean;
     isDown(): boolean;
+    handel(): void;
 }
 
 class Right implements Input {
+    handel() {
+        moveHorizontal(1);
+    }
     isRight(): boolean {
         return true;
     }
@@ -35,6 +40,9 @@ class Right implements Input {
 }
 
 class Left implements Input {
+    handel() {
+        moveHorizontal(-1);
+    }
     isRight(): boolean {
         return false;
     }
@@ -50,6 +58,9 @@ class Left implements Input {
 }
 
 class Up implements Input {
+    handel() {
+        moveVertical(-1);
+    }
     isRight(): boolean {
         return false;
     }
@@ -65,6 +76,9 @@ class Up implements Input {
 }
 
 class Down implements Input {
+    handel() {
+        moveVertical(1);
+    }
     isRight(): boolean {
         return false;
     }
@@ -143,14 +157,7 @@ function moveVertical(dy: number) {
 }
 
 function handleInput(input: Input) {
-    if (input.isLeft())
-        moveHorizontal(-1);
-    else if (input.isRight())
-        moveHorizontal(1);
-    else if (input.isUp())
-        moveVertical(-1);
-    else if (input.isDown())
-        moveVertical(1);
+    input.handel();
 }
 
 function handleInputs() {
