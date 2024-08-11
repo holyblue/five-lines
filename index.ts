@@ -79,17 +79,21 @@ function moveVertical(dy: number) {
     }
 }
 
+function handleInput(input: Input | Input.UP | Input.DOWN | Input.RIGHT) {
+    if (input === Input.LEFT)
+        moveHorizontal(-1);
+    else if (input === Input.RIGHT)
+        moveHorizontal(1);
+    else if (input === Input.UP)
+        moveVertical(-1);
+    else if (input === Input.DOWN)
+        moveVertical(1);
+}
+
 function handleInputs() {
     while (inputs.length > 0) {
         let current = inputs.pop();
-        if (current === Input.LEFT)
-            moveHorizontal(-1);
-        else if (current === Input.RIGHT)
-            moveHorizontal(1);
-        else if (current === Input.UP)
-            moveVertical(-1);
-        else if (current === Input.DOWN)
-            moveVertical(1);
+        handleInput(current);
     }
 }
 
