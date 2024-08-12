@@ -18,11 +18,11 @@ interface Input {
     isLeft(): boolean;
     isUp(): boolean;
     isDown(): boolean;
-    handel(): void;
+    handle(): void;
 }
 
 class Right implements Input {
-    handel() {
+    handle() {
         moveHorizontal(1);
     }
     isRight(): boolean {
@@ -40,7 +40,7 @@ class Right implements Input {
 }
 
 class Left implements Input {
-    handel() {
+    handle() {
         moveHorizontal(-1);
     }
     isRight(): boolean {
@@ -58,7 +58,7 @@ class Left implements Input {
 }
 
 class Up implements Input {
-    handel() {
+    handle() {
         moveVertical(-1);
     }
     isRight(): boolean {
@@ -76,7 +76,7 @@ class Up implements Input {
 }
 
 class Down implements Input {
-    handel() {
+    handle() {
         moveVertical(1);
     }
     isRight(): boolean {
@@ -156,14 +156,10 @@ function moveVertical(dy: number) {
     }
 }
 
-function handleInput(input: Input) {
-    input.handel();
-}
-
 function handleInputs() {
     while (inputs.length > 0) {
         let current = inputs.pop();
-        handleInput(current);
+        current.handle();
     }
 }
 
