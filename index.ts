@@ -14,10 +14,6 @@ enum Tile {
 }
 
 interface Input {
-    isRight(): boolean;
-    isLeft(): boolean;
-    isUp(): boolean;
-    isDown(): boolean;
     handle(): void;
 }
 
@@ -25,35 +21,11 @@ class Right implements Input {
     handle() {
         moveHorizontal(1);
     }
-    isRight(): boolean {
-        return true;
-    }
-    isLeft(): boolean {
-        return false;
-    }
-    isUp(): boolean {
-        return false;
-    }
-    isDown(): boolean {
-        return false;
-    }
 }
 
 class Left implements Input {
     handle() {
         moveHorizontal(-1);
-    }
-    isRight(): boolean {
-        return false;
-    }
-    isLeft(): boolean {
-        return true;
-    }
-    isUp(): boolean {
-        return false;
-    }
-    isDown(): boolean {
-        return false;
     }
 }
 
@@ -61,38 +33,13 @@ class Up implements Input {
     handle() {
         moveVertical(-1);
     }
-    isRight(): boolean {
-        return false;
-    }
-    isLeft(): boolean {
-        return false;
-    }
-    isUp(): boolean {
-        return true;
-    }
-    isDown(): boolean {
-        return false;
-    }
 }
 
 class Down implements Input {
     handle() {
         moveVertical(1);
     }
-    isRight(): boolean {
-        return false;
-    }
-    isLeft(): boolean {
-        return false;
-    }
-    isUp(): boolean {
-        return false;
-    }
-    isDown(): boolean {
-        return true;
-    }
 }
-
 
 let playerx = 1;
 let playery = 1;
