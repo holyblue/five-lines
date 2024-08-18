@@ -2,6 +2,32 @@ const TILE_SIZE = 30;
 const FPS = 30;
 const SLEEP = 1000 / FPS;
 
+interface FallingState {
+    isFalling(): boolean;
+    moveHorizontal(tile: Tile, dx: number): void;
+}
+
+class Falling implements FallingState {
+    isFalling(): boolean {
+        return true;
+    }
+    moveHorizontal(tile: Tile, dx: number): void {
+    }
+}
+
+class Resting implements FallingState {
+    isFalling(): boolean {
+        return false
+    }
+    moveHorizontal(tile: Tile, dx: number): void {
+        if (map[playery][playerx + dx + dx].isAir()
+            && !map[playery + 1][playerx + dx].isAir()) {
+            map[playery][playerx + dx + dx] = tile;
+            moveToTile(playerx + dx, playery);
+        }
+    }
+}
+
 enum RawTile {
     AIR,
     FLUX,
@@ -168,6 +194,8 @@ class Player implements Tile {
 }
 
 class Stone implements Tile {
+    constructor(private falling: FallingState) {
+    }
     isStony(): boolean {
         return true;
     }
@@ -177,11 +205,7 @@ class Stone implements Tile {
     moveVertical(dy: number) {
     }
     moveHorizontal(dx: number) {
-        if (map[playery][playerx + dx + dx].isAir()
-            && !map[playery + 1][playerx + dx].isAir()) {
-            map[playery][playerx + dx + dx] = this;
-            moveToTile(playerx + dx, playery);
-        }
+        this.falling.moveHorizontal(this, dx);
     }
     draw(y: number, x: number, g: CanvasRenderingContext2D) {
         this.color(g);
@@ -194,7 +218,7 @@ class Stone implements Tile {
         return false;
     }
     isFallingStone() {
-        return false;
+        return this.falling.isFalling();
     }
     isFallingBox() {
         return false;
@@ -208,6 +232,8 @@ class Stone implements Tile {
 }
 
 class FallingStone implements Tile {
+    constructor(private falling: FallingState) {
+    }
     isStony(): boolean {
         return true;
     }
@@ -217,6 +243,7 @@ class FallingStone implements Tile {
     moveVertical(dy: number) {
     }
     moveHorizontal(dx: number) {
+        this.falling.moveHorizontal(this, dx);
     }
     draw(y: number, x: number, g: CanvasRenderingContext2D) {
         this.color(g);
@@ -229,7 +256,7 @@ class FallingStone implements Tile {
         return false;
     }
     isFallingStone() {
-        return true;
+        return this.falling.isFalling();
     }
     isFallingBox() {
         return false;
@@ -520,9 +547,9 @@ function transformTile(tile: RawTile) {
         case RawTile.UNBREAKABLE:
             return new Unbreakable();
         case RawTile.STONE:
-            return new Stone();
+            return new Stone(new Resting());
         case RawTile.FALLING_STONE:
-            return new FallingStone();
+            return new FallingStone(new Falling());
         case RawTile.BOX:
             return new Box();
         case RawTile.FALLING_BOX:
@@ -591,14 +618,14 @@ function handleInputs() {
 function updateTile(y: number, x: number) {
     if (map[y][x].isStony()
         && map[y + 1][x].isAir()) {
-        map[y + 1][x] = new FallingStone();
+        map[y + 1][x] = new FallingStone(new Falling());
         map[y][x] = new Air();
     } else if (map[y][x].isBoxy()
         && map[y + 1][x].isAir()) {
         map[y + 1][x] = new FallingBox();
         map[y][x] = new Air();
     } else if (map[y][x].isFallingStone()) {
-        map[y][x] = new Stone();
+        map[y][x] = new Stone(new Resting());
     } else if (map[y][x].isFallingBox()) {
         map[y][x] = new Box();
     }
