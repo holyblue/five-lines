@@ -15,9 +15,7 @@ enum RawTile {
 
 interface Tile {
     isAir(): boolean;
-    isStone(): boolean;
     isFallingStone(): boolean;
-    isBox(): boolean;
     isFallingBox(): boolean;
     isLock1(): boolean;
     isLock2(): boolean;
@@ -50,13 +48,7 @@ class Air implements Tile {
     isAir() {
         return true;
     }
-    isStone() {
-        return false;
-    }
     isFallingStone() {
-        return false;
-    }
-    isBox() {
         return false;
     }
     isFallingBox() {
@@ -93,13 +85,7 @@ class Flux implements Tile {
     isAir() {
         return false;
     }
-    isStone() {
-        return false;
-    }
     isFallingStone() {
-        return false;
-    }
-    isBox() {
         return false;
     }
     isFallingBox() {
@@ -134,13 +120,7 @@ class Unbreakable implements Tile {
     isAir() {
         return false;
     }
-    isStone() {
-        return false;
-    }
     isFallingStone() {
-        return false;
-    }
-    isBox() {
         return false;
     }
     isFallingBox() {
@@ -173,13 +153,7 @@ class Player implements Tile {
     isAir() {
         return false;
     }
-    isStone() {
-        return false;
-    }
     isFallingStone() {
-        return false;
-    }
-    isBox() {
         return false;
     }
     isFallingBox() {
@@ -219,13 +193,7 @@ class Stone implements Tile {
     isAir() {
         return false;
     }
-    isStone() {
-        return true;
-    }
     isFallingStone() {
-        return false;
-    }
-    isBox() {
         return false;
     }
     isFallingBox() {
@@ -260,14 +228,8 @@ class FallingStone implements Tile {
     isAir() {
         return false;
     }
-    isStone() {
-        return false;
-    }
     isFallingStone() {
         return true;
-    }
-    isBox() {
-        return false;
     }
     isFallingBox() {
         return false;
@@ -306,14 +268,8 @@ class Box implements Tile {
     isAir() {
         return false;
     }
-    isStone() {
-        return false;
-    }
     isFallingStone() {
         return false;
-    }
-    isBox() {
-        return true;
     }
     isFallingBox() {
         return false;
@@ -347,13 +303,7 @@ class FallingBox implements Tile {
     isAir() {
         return false;
     }
-    isStone() {
-        return false;
-    }
     isFallingStone() {
-        return false;
-    }
-    isBox() {
         return false;
     }
     isFallingBox() {
@@ -392,13 +342,7 @@ class Key1 implements Tile {
     isAir() {
         return false;
     }
-    isStone() {
-        return false;
-    }
     isFallingStone() {
-        return false;
-    }
-    isBox() {
         return false;
     }
     isFallingBox() {
@@ -433,13 +377,7 @@ class Lock1 implements Tile {
     isAir() {
         return false;
     }
-    isStone() {
-        return false;
-    }
     isFallingStone() {
-        return false;
-    }
-    isBox() {
         return false;
     }
     isFallingBox() {
@@ -478,13 +416,7 @@ class Key2 implements Tile {
     isAir() {
         return false;
     }
-    isStone() {
-        return false;
-    }
     isFallingStone() {
-        return false;
-    }
-    isBox() {
         return false;
     }
     isFallingBox() {
@@ -519,13 +451,7 @@ class Lock2 implements Tile {
     isAir() {
         return false;
     }
-    isStone() {
-        return false;
-    }
     isFallingStone() {
-        return false;
-    }
-    isBox() {
         return false;
     }
     isFallingBox() {
