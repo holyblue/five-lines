@@ -18,9 +18,7 @@ interface Tile {
   isBoxy(): boolean;
   isStony(): boolean;
   isAir(): boolean;
-  isStone(): boolean;
   isFallingStone(): boolean;
-  isBox(): boolean;
   isFallingBox(): boolean;
   isLock1(): boolean;
   isLock2(): boolean;
@@ -33,7 +31,6 @@ class Air implements Tile {
   isBoxy(): boolean {
     return false;
   }
-
   isStony() {
     return false;
   }
@@ -46,9 +43,7 @@ class Air implements Tile {
   draw(y: number, x: number, g: CanvasRenderingContext2D) {
   }
   isAir() { return true; }
-  isStone() { return false; }
   isFallingStone() { return false; }
-  isBox() { return false; }
   isFallingBox() { return false; }
   isLock1() { return false; }
   isLock2() { return false; }
@@ -72,9 +67,7 @@ class Flux implements Tile {
     g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
   isAir() { return false; }
-  isStone() { return false; }
   isFallingStone() { return false; }
-  isBox() { return false; }
   isFallingBox() { return false; }
   isLock1() { return false; }
   isLock2() { return false; }
@@ -96,9 +89,7 @@ class Unbreakable implements Tile {
     g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
   isAir() { return false; }
-  isStone() { return false; }
   isFallingStone() { return false; }
-  isBox() { return false; }
   isFallingBox() { return false; }
   isLock1() { return false; }
   isLock2() { return false; }
@@ -118,9 +109,7 @@ class Player implements Tile {
   draw(y: number, x: number, g: CanvasRenderingContext2D) {
   }
   isAir() { return false; }
-  isStone() { return false; }
   isFallingStone() { return false; }
-  isBox() { return false; }
   isFallingBox() { return false; }
   isLock1() { return false; }
   isLock2() { return false; }
@@ -147,9 +136,7 @@ class Stone implements Tile {
     g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
   isAir() { return false; }
-  isStone() { return true; }
   isFallingStone() { return false; }
-  isBox() { return false; }
   isFallingBox() { return false; }
   isLock1() { return false; }
   isLock2() { return false; }
@@ -171,9 +158,7 @@ class FallingStone implements Tile {
     g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
   isAir() { return false; }
-  isStone() { return false; }
   isFallingStone() { return true; }
-  isBox() { return false; }
   isFallingBox() { return false; }
   isLock1() { return false; }
   isLock2() { return false; }
@@ -200,9 +185,7 @@ class Box implements Tile {
     g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
   isAir() { return false; }
-  isStone() { return false; }
   isFallingStone() { return false; }
-  isBox() { return true; }
   isFallingBox() { return false; }
   isLock1() { return false; }
   isLock2() { return false; }
@@ -224,9 +207,7 @@ class FallingBox implements Tile {
     g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
   isAir() { return false; }
-  isStone() { return false; }
   isFallingStone() { return false; }
-  isBox() { return false; }
   isFallingBox() { return true; }
   isLock1() { return false; }
   isLock2() { return false; }
@@ -252,9 +233,7 @@ class Key1 implements Tile {
     g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
   isAir() { return false; }
-  isStone() { return false; }
   isFallingStone() { return false; }
-  isBox() { return false; }
   isFallingBox() { return false; }
   isLock1() { return false; }
   isLock2() { return false; }
@@ -276,9 +255,7 @@ class Lock1 implements Tile {
     g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
   isAir() { return false; }
-  isStone() { return false; }
   isFallingStone() { return false; }
-  isBox() { return false; }
   isFallingBox() { return false; }
   isLock1() { return true; }
   isLock2() { return false; }
@@ -304,9 +281,7 @@ class Key2 implements Tile {
     g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
   isAir() { return false; }
-  isStone() { return false; }
   isFallingStone() { return false; }
-  isBox() { return false; }
   isFallingBox() { return false; }
   isLock1() { return false; }
   isLock2() { return false; }
@@ -328,9 +303,7 @@ class Lock2 implements Tile {
     g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
   isAir() { return false; }
-  isStone() { return false; }
   isFallingStone() { return false; }
-  isBox() { return false; }
   isFallingBox() { return false; }
   isLock1() { return false; }
   isLock2() { return true; }
