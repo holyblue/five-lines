@@ -15,6 +15,8 @@ enum RawTile {
 }
 
 interface Tile {
+  isBoxy(): boolean;
+  isStony(): boolean;
   isAir(): boolean;
   isStone(): boolean;
   isFallingStone(): boolean;
@@ -28,6 +30,13 @@ interface Tile {
 }
 
 class Air implements Tile {
+  isBoxy(): boolean {
+    return false;
+  }
+
+  isStony() {
+    return false;
+  }
   moveVertical(dy: number) {
     moveToTile(playerx, playery + dy);
   }
@@ -46,6 +55,12 @@ class Air implements Tile {
 }
 
 class Flux implements Tile {
+  isBoxy(): boolean {
+    return false;
+  }
+  isStony() {
+    return false;
+  }
   moveVertical(dy: number) {
     moveToTile(playerx, playery + dy);
   }
@@ -66,6 +81,12 @@ class Flux implements Tile {
 }
 
 class Unbreakable implements Tile {
+  isBoxy(): boolean {
+    return false;
+  }
+  isStony() {
+    return false;
+  }
   moveVertical(dy: number) {
   }
   moveHorizontal(dx: number) {
@@ -84,6 +105,12 @@ class Unbreakable implements Tile {
 }
 
 class Player implements Tile {
+  isBoxy(): boolean {
+    return false;
+  }
+  isStony() {
+    return false;
+  }
   moveVertical(dy: number) {
   }
   moveHorizontal(dx: number) {
@@ -100,6 +127,12 @@ class Player implements Tile {
 }
 
 class Stone implements Tile {
+  isBoxy(): boolean {
+    return false;
+  }
+  isStony() {
+    return true;
+  }
   moveVertical(dy: number) {
   }
   moveHorizontal(dx: number) {
@@ -123,6 +156,12 @@ class Stone implements Tile {
 }
 
 class FallingStone implements Tile {
+  isBoxy(): boolean {
+    return false;
+  }
+  isStony() {
+    return true;
+  }
   moveVertical(dy: number) {
   }
   moveHorizontal(dx: number) {
@@ -141,6 +180,12 @@ class FallingStone implements Tile {
 }
 
 class Box implements Tile {
+  isBoxy(): boolean {
+    return true;
+  }
+  isStony() {
+    return false;
+  }
   moveVertical(dy: number) {
   }
   moveHorizontal(dx: number) {
@@ -164,6 +209,12 @@ class Box implements Tile {
 }
 
 class FallingBox implements Tile {
+  isBoxy(): boolean {
+    return true;
+  }
+  isStony() {
+    return false;
+  }
   moveVertical(dy: number) {
   }
   moveHorizontal(dx: number) {
@@ -182,6 +233,12 @@ class FallingBox implements Tile {
 }
 
 class Key1 implements Tile {
+  isBoxy(): boolean {
+    return false;
+  }
+  isStony() {
+    return false;
+  }
   moveVertical(dy: number) {
     removeLock1();
     moveToTile(playerx, playery + dy);
@@ -204,6 +261,12 @@ class Key1 implements Tile {
 }
 
 class Lock1 implements Tile {
+  isBoxy(): boolean {
+    return false;
+  }
+  isStony() {
+    return false;
+  }
   moveVertical(dy: number) {
   }
   moveHorizontal(dx: number) {
@@ -222,6 +285,12 @@ class Lock1 implements Tile {
 }
 
 class Key2 implements Tile {
+  isBoxy(): boolean {
+    return false;
+  }
+  isStony() {
+    return false;
+  }
   moveVertical(dy: number) {
     removeLock2();
     moveToTile(playerx, playery + dy);
@@ -244,6 +313,12 @@ class Key2 implements Tile {
 }
 
 class Lock2 implements Tile {
+  isBoxy(): boolean {
+    return false;
+  }
+  isStony() {
+    return false;
+  }
   moveVertical(dy: number) {
   }
   moveHorizontal(dx: number) {
@@ -372,18 +447,16 @@ function update() {
 function updateMap() {
   for (let y = map.length - 1; y >= 0; y--) {
     for (let x = 0; x < map[y].length; x++) {
-      updateTiles(y, x);
+      updateTile(y, x);
     }
   }
 }
 
-function updateTiles(y: number, x: number) {
-  if ((map[y][x].isStone() || map[y][x].isFallingStone())
-    && map[y + 1][x].isAir()) {
+function updateTile(y: number, x: number) {
+  if (map[y][x].isStony() && map[y + 1][x].isAir()) {
     map[y + 1][x] = new FallingStone();
     map[y][x] = new Air();
-  } else if ((map[y][x].isBox() || map[y][x].isFallingBox())
-    && map[y + 1][x].isAir()) {
+  } else if (map[y][x].isBoxy() && map[y + 1][x].isAir()) {
     map[y + 1][x] = new FallingBox();
     map[y][x] = new Air();
   } else if (map[y][x].isFallingStone()) {
@@ -405,12 +478,13 @@ function draw() {
   drawMap(g);
   drawPlayer(g);
 
-  function createGraphics() {
-    let canvas = document.getElementById("GameCanvas") as HTMLCanvasElement;
-    let g = canvas.getContext("2d");
-    g.clearRect(0, 0, canvas.width, canvas.height);
-    return g;
-  }
+}
+
+function createGraphics() {
+  let canvas = document.getElementById("GameCanvas") as HTMLCanvasElement;
+  let g = canvas.getContext("2d");
+  g.clearRect(0, 0, canvas.width, canvas.height);
+  return g;
 }
 
 function drawPlayer(g: CanvasRenderingContext2D) {
