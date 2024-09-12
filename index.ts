@@ -320,12 +320,12 @@ function update() {
 function updateMap() {
   for (let y = map.length - 1; y >= 0; y--) {
     for (let x = 0; x < map[y].length; x++) {
-      updateTiles(y, x);
+      updateTile(y, x);
     }
   }
 }
 
-function updateTiles(y: number, x: number) {
+function updateTile(y: number, x: number) {
   if ((map[y][x].isStone() || map[y][x].isFallingStone())
     && map[y + 1][x].isAir()) {
     map[y + 1][x] = new FallingStone();
@@ -352,13 +352,13 @@ function draw() {
   let g = createGraphics();
   drawMap(g);
   drawPlayer(g);
+}
 
-  function createGraphics() {
-    let canvas = document.getElementById("GameCanvas") as HTMLCanvasElement;
-    let g = canvas.getContext("2d");
-    g.clearRect(0, 0, canvas.width, canvas.height);
-    return g;
-  }
+function createGraphics() {
+  let canvas = document.getElementById("GameCanvas") as HTMLCanvasElement;
+  let g = canvas.getContext("2d");
+  g.clearRect(0, 0, canvas.width, canvas.height);
+  return g;
 }
 
 function drawPlayer(g: CanvasRenderingContext2D) {
